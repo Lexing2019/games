@@ -37,7 +37,7 @@ export default class GameScene extends Phaser.Scene
          */
         // Let's add the ball
         this.ball = this.physics.add.sprite(
-            this.physics.world.bounds.width / 2 - 200, // x position 
+            this.physics.world.bounds.width / 2 - 290, // x position 
             this.physics.world.bounds.height /2, // y position
             'ball' // key of image for the sprite
         ).setScale(0.5)
