@@ -10,6 +10,7 @@ export default class GameScene extends Phaser.Scene
         this.ball
         this.ground
         this.obstacleList
+        this.score = 0
     }
 
     /**
@@ -80,17 +81,20 @@ export default class GameScene extends Phaser.Scene
         this.ground.setImmovable(true)
         this.physics.add.collider(this.ball, this.ground, this.hitGround, null, this)
         this.physics.add.collider(this.ball, this.obstacleList, this.gameOver, null, this)
+        this.scoreText = this.add.text(16, 16, 'Score: 0', { color: '#fff', fontSize: 24 })
     }
 
     update()
     {
         
         this.obstacleList.getChildren().forEach(function(obstacle){
-          if(obstacle.getBounds().right < 0){
-            let x = Phaser.Math.Between(600, 800)
-            obstacle.x = x
-          }  
-        });
+            if(obstacle.getBounds().right < 0){
+                let x = Phaser.Math.Between(600, 800)
+                obstacle.x = x
+                this.score += 1
+                this.scoreText.text = `Score: ${this.score}`
+            }  
+        }, this)
     }
     mouseClick()
     {
@@ -100,6 +104,7 @@ export default class GameScene extends Phaser.Scene
         this.ball.setVelocityY(-300)
     }
     gameOver(){
+        this.score = 0 
         this.scene.restart()
     }
 }
